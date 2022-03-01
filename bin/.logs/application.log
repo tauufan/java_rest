@@ -1,0 +1,4 @@
+2022-02-27T12:00:32.242+0700 INFO Starting RestApplication using Java 1.8.0_131 on taufan-mac.local with PID 2743 (/Users/taufanyanakbar/eclipse-workspace/rest/target/classes started by taufanyanakbar in /Users/taufanyanakbar/eclipse-workspace/rest)
+2022-02-27T12:00:32.242+0700 DEBUG Running with Spring Boot v2.6.3, Spring v5.3.15
+2022-02-27T12:00:32.242+0700 INFO No active profile set, falling back to default profiles: default
+2022-02-27T12:00:36.200+0700 INFO Started RestApplication in 4.281 seconds (JVM running for 4.909)
