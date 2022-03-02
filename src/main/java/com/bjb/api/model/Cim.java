@@ -8,12 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Transient;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
-import org.springframework.lang.NonNull;
-
 import io.swagger.annotations.ApiModelProperty;
 
 @Entity
@@ -27,14 +24,19 @@ public class Cim {
 	private String cif;
 	private String hubungan_dengan_bank;
 	private String tempat_lahir;
+	@ApiModelProperty(example = "dd-mm-yyyy")
 	private String tanggal_lahir;
 	@Transient
+	@ApiModelProperty(example = "dd-mm-yyyy")
 	private String tanggal_lahir_desc;
 	private String nama_lengkap;
 	private String kode_identitas;
-	private String nomor_id;
+	@Column(name="nomor_id")
+	private String nomorid;
+	@ApiModelProperty(example = "dd-mm-yyyy")
 	private String tanggal_berakhir_kartu_id;
 	@Transient
+	@ApiModelProperty(example = "dd-mm-yyyy")
 	private String tanggal_berakhir_kartu_id_desc;
 	private String jenis_kelamin;
 	private String perkerjaan;
@@ -50,16 +52,20 @@ public class Cim {
 	private String aktivitas_transaksi_normal;
 	private String tujuan_penggunaan_dana;
 	private String golongan_nasabah;
+	@ApiModelProperty(example = "dd-mm-yyyy")
 	private String tanggal_buka_nasabah;
 	@Transient
+	@ApiModelProperty(example = "dd-mm-yyyy")
 	private String tanggal_buka_nasabah_desc;
 	private String contact_person;
 	private String nama_ibu_kandung;
 	private String golongan_darah;
 	private String alamat_domisili;
 	private String nomor_kitas_kitap;
+	@ApiModelProperty(example = "dd-mm-yyyy")
 	private String tanggal_berakhir_kitas_kitap;
 	@Transient
+	@ApiModelProperty(example = "dd-mm-yyyy")
 	private String tanggal_berakhir_kitas_kitap_desc;
 	private String sumber_pendapatan_dana;
 	private String sumber_dana_bila_tidak_berkerja;
@@ -71,8 +77,10 @@ public class Cim {
 	private String kewarganegaraan;
 	private String status_kependudukan;
 	private String nik_pasangan;
+	@ApiModelProperty(example = "dd-mm-yyyy")
 	private String tanggal_lahir_pasangan;
 	@Transient
+	@ApiModelProperty(example = "dd-mm-yyyy")
 	private String tanggal_lahir_pasangan_desc;
 	private String kode_pekerjaan;
 	private String tipe_nasabah;
@@ -96,10 +104,11 @@ public class Cim {
 	public Cim() {
     }
 	
-	public Cim(@NotBlank String cif, String hubungan_dengan_bank, String tempat_lahir, String tanggal_lahir,
-			String tanggal_lahir_desc, String nama_lengkap, String kode_identitas, String nomor_id,
-			String tanggal_berakhir_kartu_id, String tanggal_berakhir_kartu_id_desc, String jenis_kelamin,
-			String perkerjaan, String alamat_tempat_berkerja, String kegiatan_usaha_tempat_berkerja, String npwp,
+	public Cim(@NotEmpty(message = "Tidak boleh kosong!") @Length(max = 6, min = 6) String cif,
+			String hubungan_dengan_bank, String tempat_lahir, String tanggal_lahir, String tanggal_lahir_desc,
+			String nama_lengkap, String kode_identitas, String nomorid, String tanggal_berakhir_kartu_id,
+			String tanggal_berakhir_kartu_id_desc, String jenis_kelamin, String perkerjaan,
+			String alamat_tempat_berkerja, String kegiatan_usaha_tempat_berkerja, String npwp,
 			String jumlah_penghasilan, String rekening_dibank_lain, String alamat_email, String no_hp,
 			String status_perkawinan, String status_pendidikan, String aktivitas_transaksi_normal,
 			String tujuan_penggunaan_dana, String golongan_nasabah, String tanggal_buka_nasabah,
@@ -122,7 +131,7 @@ public class Cim {
 		this.tanggal_lahir_desc = tanggal_lahir_desc;
 		this.nama_lengkap = nama_lengkap;
 		this.kode_identitas = kode_identitas;
-		this.nomor_id = nomor_id;
+		this.nomorid = nomorid;
 		this.tanggal_berakhir_kartu_id = tanggal_berakhir_kartu_id;
 		this.tanggal_berakhir_kartu_id_desc = tanggal_berakhir_kartu_id_desc;
 		this.jenis_kelamin = jenis_kelamin;
@@ -175,6 +184,8 @@ public class Cim {
 		this.updateby = updateby;
 		this.updatedate = updatedate;
 	}
+
+
 
 	public Long getId() {
 		return id;
@@ -255,16 +266,13 @@ public class Cim {
 		this.kode_identitas = kode_identitas;
 	}
 
-
-	public String getNomor_id() {
-		return nomor_id;
+	public String getNomorid() {
+		return nomorid;
 	}
 
-
-	public void setNomor_id(String nomor_id) {
-		this.nomor_id = nomor_id;
+	public void setNomorid(String nomorid) {
+		this.nomorid = nomorid;
 	}
-
 
 	public String getTanggal_berakhir_kartu_id() {
 		return tanggal_berakhir_kartu_id;

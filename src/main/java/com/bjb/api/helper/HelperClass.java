@@ -29,4 +29,27 @@ public class HelperClass {
 		}
 		return result;
 	}
+	
+	public String ConvertToCentury(String tanggal) {
+		String result =null;
+		if(tanggal == null || tanggal == "" || tanggal.isEmpty() || tanggal.length() < 1 ) {
+			result = tanggal;
+		}else {
+			if(tanggal.length() == 10) {
+				String[] tanggal_ = tanggal.split("-");
+				String day = tanggal_[0];
+				String month = tanggal_[1];
+				String year_ = tanggal_[2];
+				int year = Integer.parseInt(tanggal_[2]);
+				if(year > 1999) {
+					result = "1"+year_.substring(2, 4)+month+day+"0";
+				}else {
+					result = year_.substring(2, 4)+month+day+"0";
+				}
+			}else {
+				result=tanggal;
+			}
+		}
+		return result;
+	}
 }
