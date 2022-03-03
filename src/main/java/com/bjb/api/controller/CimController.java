@@ -39,10 +39,13 @@ import com.bjb.api.model.Book;
 import com.bjb.api.model.Cim;
 import com.bjb.api.repository.CimRepository;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiOperation;
 
 
 @RestController
+@Api(description="Customer Informtion & Maintenance")
 public class CimController {
 	
 	private final static Logger logger = LoggerFactory.getLogger(CimController.class);
@@ -52,6 +55,7 @@ public class CimController {
 	
 	// Find
     @GetMapping("/api/cim")
+    @ApiOperation(value = "List Cim")
     public ResponseEntity<Map<String, Object>> getAllCims(
     		HttpServletRequest request,
             @RequestParam(defaultValue = "0") int page,
@@ -98,6 +102,7 @@ public class CimController {
 //    }
     
     @GetMapping("/api/cim/{cif}")
+    @ApiOperation(value = "Search CIM By CIF")
     List<Cim> findbyCif(HttpServletRequest request, @PathVariable String cif) {
     	
     	    List<Cim> cim = repository.findByCif_(cif);
@@ -118,6 +123,7 @@ public class CimController {
     }
     
     @GetMapping("/api/cim/find_by_nomor_id/{nomor_id}")
+    @ApiOperation(value = "Search CIM By Id Number")
     List<Cim> findbyNomor_id(HttpServletRequest request, @PathVariable String nomor_id) {
     	
     	    List<Cim> cim = repository.findByNomorid(nomor_id);
@@ -140,6 +146,7 @@ public class CimController {
     //return 201 instead of 200
     @ResponseStatus(code = HttpStatus.CREATED)
     @PostMapping("/api/cim")
+    @ApiOperation(value = "Add Cim")
     ResponseEntity<Object> newCim(@Valid @RequestBody Cim newCim) {
 	    	List<Cim> cim = repository.findByCif_(newCim.getCif());
 	    	Cim resp = new Cim();
@@ -159,6 +166,7 @@ public class CimController {
     }
     
     @DeleteMapping("/api/cim/deleteByCif/{cif}")
+    @ApiOperation(value = "Delete CIM By CIF")
     void deleteCimbyCif(@PathVariable String cif) {
     	List<Cim> cim = repository.findByCif_(cif);
     	if (cim.isEmpty()) {
@@ -168,13 +176,15 @@ public class CimController {
     }
     
     @DeleteMapping("/api/cim/deleteByid/{id}")
+    @ApiOperation(value = "Delete CIM By id")
     void deleteCim(@PathVariable Long id) {
     	repository.deleteById(id);
     }
     
  // Save or update
     @PutMapping("/api/cim/bycif/{cif}")
-    Cim saveOrUpdate(@RequestBody Cim newCim, @PathVariable String cif) {
+    @ApiOperation(value = "Save Or Update CIM By CIF")
+    Cim saveOrUpdateCim(@RequestBody Cim newCim, @PathVariable String cif) {
     			Cim getCif = repository.findByCif(cif);
     			Long id = getCif.getId();
     			

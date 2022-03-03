@@ -27,7 +27,7 @@ public class Cim {
 	@ApiModelProperty(example = "dd-mm-yyyy")
 	private String tanggal_lahir;
 	@Transient
-	@ApiModelProperty(example = "dd-mm-yyyy")
+	@ApiModelProperty(example = "dd-mm-yyyy", hidden = true)
 	private String tanggal_lahir_desc;
 	private String nama_lengkap;
 	private String kode_identitas;
@@ -36,7 +36,7 @@ public class Cim {
 	@ApiModelProperty(example = "dd-mm-yyyy")
 	private String tanggal_berakhir_kartu_id;
 	@Transient
-	@ApiModelProperty(example = "dd-mm-yyyy")
+	@ApiModelProperty(example = "dd-mm-yyyy", hidden = true)
 	private String tanggal_berakhir_kartu_id_desc;
 	private String jenis_kelamin;
 	private String perkerjaan;
@@ -55,7 +55,7 @@ public class Cim {
 	@ApiModelProperty(example = "dd-mm-yyyy")
 	private String tanggal_buka_nasabah;
 	@Transient
-	@ApiModelProperty(example = "dd-mm-yyyy")
+	@ApiModelProperty(example = "dd-mm-yyyy", hidden = true)
 	private String tanggal_buka_nasabah_desc;
 	private String contact_person;
 	private String nama_ibu_kandung;
@@ -65,7 +65,7 @@ public class Cim {
 	@ApiModelProperty(example = "dd-mm-yyyy")
 	private String tanggal_berakhir_kitas_kitap;
 	@Transient
-	@ApiModelProperty(example = "dd-mm-yyyy")
+	@ApiModelProperty(example = "dd-mm-yyyy", hidden = true)
 	private String tanggal_berakhir_kitas_kitap_desc;
 	private String sumber_pendapatan_dana;
 	private String sumber_dana_bila_tidak_berkerja;
@@ -80,7 +80,7 @@ public class Cim {
 	@ApiModelProperty(example = "dd-mm-yyyy")
 	private String tanggal_lahir_pasangan;
 	@Transient
-	@ApiModelProperty(example = "dd-mm-yyyy")
+	@ApiModelProperty(example = "dd-mm-yyyy", hidden = true)
 	private String tanggal_lahir_pasangan_desc;
 	private String kode_pekerjaan;
 	private String tipe_nasabah;
