@@ -33,12 +33,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bjb.api.exeption.error.RecordNotFoundException;
-import com.bjb.api.helper.Header;
 import com.bjb.api.helper.HelperClass;
-import com.bjb.api.helper.MPI;
 import com.bjb.api.model.Cim;
 import com.bjb.api.repository.CimRepository;
-import com.bjb.api.service.AccountBalance.AccountBalance;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import io.swagger.annotations.Api;
