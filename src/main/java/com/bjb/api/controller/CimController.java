@@ -36,6 +36,7 @@ import com.bjb.api.exeption.error.RecordNotFoundException;
 import com.bjb.api.helper.HelperClass;
 import com.bjb.api.model.Cim;
 import com.bjb.api.repository.CimRepository;
+import com.bjb.api.service.AccountBalance.AccountBalance;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import io.swagger.annotations.Api;
@@ -58,8 +59,15 @@ public class CimController {
     		HttpServletRequest request,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
-          ){
+          ) throws JsonProcessingException{
         logger.info("Api "+request.getMethod()+" CIM "+request.getLocalAddr());
+        //test ab
+        AccountBalance ab = new AccountBalance();
+        
+        String res = ab.GetAccountBalance("0411920000100");
+        
+        System.out.println(res);
+        //end test ab
         try {
           List<Cim> cim = new ArrayList<Cim>();
           Pageable paging = PageRequest.of(page, size);

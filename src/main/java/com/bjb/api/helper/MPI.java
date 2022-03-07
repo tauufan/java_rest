@@ -1,16 +1,12 @@
 package com.bjb.api.helper;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-
-import io.swagger.annotations.ApiModelProperty;
 
 public class MPI {
 	
 	@JsonIgnore
 	private String accuse = "externalaccount";
-
+	
 	private String ZLEAN;
 	private String ZLAB;
 	private String ZLAN;

@@ -3,8 +3,6 @@ package com.bjb.api.helper;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
-
 public class Header {
 	
 	Date dt = new Date();
