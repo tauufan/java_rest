@@ -40,7 +40,10 @@ public class SwaggerConfig {
 	       	  .apiInfo(apiInfo());
 	}
 	private ApiInfo apiInfo() {
-		return new ApiInfoBuilder().title("CIM BJBFAST").description("API Customer Information Maintenance BJBFast").version("1.0").build();
+		return new ApiInfoBuilder().title("CIM BJBFAST")
+				.description("API Customer Information Maintenance BJBFast")
+				.version("1.0")
+				.build();
 	}
 	
 	@Bean

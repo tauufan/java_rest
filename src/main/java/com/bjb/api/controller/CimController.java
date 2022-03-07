@@ -7,8 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.persistence.Column;
-import javax.persistence.Transient;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -34,18 +33,20 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bjb.api.exeption.error.RecordNotFoundException;
+import com.bjb.api.helper.Header;
 import com.bjb.api.helper.HelperClass;
-import com.bjb.api.model.Book;
+import com.bjb.api.helper.MPI;
 import com.bjb.api.model.Cim;
 import com.bjb.api.repository.CimRepository;
+import com.bjb.api.service.AccountBalance.AccountBalance;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 
 
 @RestController
-@Api(description="Customer Informtion & Maintenance")
+@Api(description="Customer Information & Maintenance")
 public class CimController {
 	
 	private final static Logger logger = LoggerFactory.getLogger(CimController.class);
@@ -60,7 +61,7 @@ public class CimController {
     		HttpServletRequest request,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
-          ) {
+          ){
         logger.info("Api "+request.getMethod()+" CIM "+request.getLocalAddr());
         try {
           List<Cim> cim = new ArrayList<Cim>();
