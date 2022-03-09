@@ -36,7 +36,11 @@ public class socketHelper {
     // 0 means no timeout
     private int timeout = 3;
     private SymetricCryptoHandler enkriptor;
-
+    
+    public socketHelper() {
+    	
+    }
+    
     public socketHelper(String host, int port) {
         try {
             //1. creating a socket to connect to the server
@@ -649,6 +653,84 @@ public class socketHelper {
 //
 //        return result;   
 //    }
+    
+    public String sendDataSocketTG(String host,int port,String MPI) {
+        String result = "";
+        final byte cEndMessageByte = -0x01;
+        Socket requestSocket;
+        DataInputStream is;
+	DataOutputStream os;
+        StringBuilder concatnator = new StringBuilder();
+        
+         /*
+        try {
+                
+		requestSocket = new Socket(hostSocket, portSocket);
+		
+		is = new DataInputStream(requestSocket.getInputStream());
+		os = new DataOutputStream(requestSocket.getOutputStream());
+                
+		PrintWriter pw = new PrintWriter(os);
+		pw.println(MPI);
+		pw.flush();
+			
+		BufferedReader in = new BufferedReader(new InputStreamReader(is));
+		//JSONObject json = new JSONObject(in.readLine());
+		String hasil = in.toString();
+                result = hasil;
+		is.close();
+		os.close();
+			
+	} catch (IOException e) {
+		result = "gagal";		
+		e.printStackTrace();			
+	} 
+	*/
+	
+       try {
+//            enkriptor = new SymetricCryptoHandler(getType(), getMode(), getPadding(), getKey(), null);
+            enkriptor = new SymetricCryptoHandler(getType(), getMode(), getPadding(), getKey(), null);
+           
+            requestSocket = new Socket(host, port);
+            ByteArrayOutputStream tRequestByteStream = null;
+            tRequestByteStream = new ByteArrayOutputStream();
+            
+            String sendMsg = enkriptor.getCryptoMessage(SymetricCryptoHandler.ACTION_ENCRYPT, MPI);
+//            logger.info("Message from bjb FAST : " + sendMsg.toString());
+            
+            tRequestByteStream.write(sendMsg.getBytes());
+            tRequestByteStream.write(cEndMessageByte);
+            
+//            System.out.println(tRequestByteStream.toByteArray());
+            requestSocket.getOutputStream().write(tRequestByteStream.toByteArray());
+            requestSocket.getOutputStream().flush();
+//            requestSocket.getOutputStream().close();
+            byte tMessageByte = cEndMessageByte;
+            
+             while ((tMessageByte = (byte) requestSocket.getInputStream().read()) != cEndMessageByte) {
+                /*untuk menampilkan ingoing per char */
+//                System.out.println(tMessageByte + "-" +(char) tMessageByte);
+                
+                //sb.append((char) tMessageByte);
+                concatnator.append((char) tMessageByte);
+            }
+//              DataInputStream inputStream=new DataInputStream(  
+//                new BufferedInputStream(requestSocket.getInputStream()));  
+//              System.out.println("Input Stream: "+inputStream);
+             
+//             logger.info("Response Message to bjb FAST : " + concatnator.toString());
+             
+             result = enkriptor.getCryptoMessage(SymetricCryptoHandler.ACTION_DECRYPT, concatnator.toString());
+//             result = concatnator.toString();
+             concatnator = clearStringBuilder(concatnator);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.out.println(ex);
+        }
+        
+        return result;
+    }
+    
     /**
      * @return the socketReady
      */

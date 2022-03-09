@@ -1,59 +1,81 @@
 package com.bjb.api.helper;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MPI {
 	
 	@JsonIgnore
 	private String accuse = "externalaccount";
 	
-	private String ZLEAN;
-	private String ZLAB;
-	private String ZLAN;
-	private String ZLAS;
+	@JsonProperty("ZLEAN")
+	private String zlean;
+	@JsonProperty("ZLAB")
+	private String zlab;
+	@JsonProperty("ZLAN")
+	private String zlan;
+	@JsonProperty("ZLAS")
+	private String zlas;
 	
 	public MPI() {
 		
 	}
+
 	
-	public MPI(String zLEAN, String zLAB, String zLAN, String zLAS) {
+	public MPI(String zlean, String zlab, String zlan, String zlas) {
 		super();
-		ZLEAN = zLEAN;
-		ZLAB = zLAB;
-		ZLAN = zLAN;
-		ZLAS = zLAS;
+		this.zlean = zlean;
+		this.zlab = zlab;
+		this.zlan = zlan;
+		this.zlas = zlas;
 	}
-	
+
+
+	@Override
+	public String toString() {
+		return "MPI [zlean=" + zlean + ", zlab=" + zlab + ", zlan=" + zlan + ", zlas=" + zlas + "]";
+	}
+
+
 	public String getAccuse() {
 		return accuse;
 	}
+
 	public void setAccuse(String accuse) {
 		this.accuse = accuse;
 	}
-	public String getZLEAN() {
-		return ZLEAN;
+
+	public String getZlean() {
+		return zlean;
 	}
-	public void setZLEAN(String zLEAN) {
-		ZLEAN = zLEAN;
+
+	public void setZlean(String zlean) {
+		this.zlean = zlean;
 	}
-	public String getZLAB() {
-		return ZLAB;
+
+	public String getZlab() {
+		return zlab;
 	}
-	public void setZLAB(String zLAB) {
-		ZLAB = zLAB;
+
+	public void setZlab(String zlab) {
+		this.zlab = zlab;
 	}
-	public String getZLAN() {
-		return ZLAN;
+
+	public String getZlan() {
+		return zlan;
 	}
-	public void setZLAN(String zLAN) {
-		ZLAN = zLAN;
+
+	public void setZlan(String zlan) {
+		this.zlan = zlan;
 	}
-	public String getZLAS() {
-		return ZLAS;
+
+	public String getZlas() {
+		return zlas;
 	}
-	public void setZLAS(String zLAS) {
-		ZLAS = zLAS;
+
+	public void setZlas(String zlas) {
+		this.zlas = zlas;
 	}
 	
-	
+		
 }

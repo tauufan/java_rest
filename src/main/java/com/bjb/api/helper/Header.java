@@ -3,105 +3,146 @@ package com.bjb.api.helper;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Header {
 	
-	Date dt = new Date();
+	Date Dt = new Date();
     SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 	SimpleDateFormat sdfr = new SimpleDateFormat("HHmmssSSSS");
 	
-	private String PC = "001001";
-	private String PCC = "5";
-	private String ST = sdfr.format(dt);
-	private String CC = "0001";
-	private String FC = "AB";
-	private String DT = sdf.format(dt);
-	private String MC = "90023";
-	private String MT = "9200";
-	private String CID = "TG-CB-00-1000069";
+	@JsonProperty("PC")
+	private String pc = "001001";
+	@JsonProperty("PCC")
+	private String pcc = "5";
+	@JsonProperty("ST")
+	private String st = sdfr.format(Dt);
+	@JsonProperty("CC")
+	private String cc = "0001";
+	@JsonProperty("FC")
+	private String fc = "AB";
+	@JsonProperty("DT")
+	private String dt = sdf.format(Dt);
+	@JsonProperty("MC")
+	private String mc = "90023";
+	@JsonProperty("MT")
+	private String mt = "9200";
+	@JsonProperty("CID")
+	private String cid = "TG-CB-00-1000069";
+	@JsonProperty("SID")
+	private String sid = "singleUserIDWebTeller";
+	MPI Mpi = new MPI();
 	
-	MPI mpi = new MPI();
-	
-	private MPI MPI = mpi;
+	@JsonProperty("MPI")
+	private MPI mpi = Mpi;
 	
 	public Header() {
 		
 	}
-	
-	public Header(String pC, String pCC, String sT, String cC, String fC, String dT, String mC, String mT,
-			String cID, MPI mPI) {
+
+	public Header(String pc, String pcc, String st, String cc, String fc, String dt, String mc, String mt, String cid,
+			String sid, MPI mpi) {
 		super();
-		PC = pC;
-		PCC = pCC;
-		ST = sT;
-		CC = cC;
-		FC = fC;
-		DT = dT;
-		MC = mC;
-		MT = mT;
-		CID = cID;
-		MPI = mPI;
-	}
-	public String getPC() {
-		return PC;
-	}
-	public void setPC(String pC) {
-		PC = pC;
-	}
-	public String getPCC() {
-		return PCC;
-	}
-	public void setPCC(String pCC) {
-		PCC = pCC;
-	}
-	public String getST() {
-		return ST;
-	}
-	public void setST(String sT) {
-		ST = sT;
-	}
-	public String getCC() {
-		return CC;
-	}
-	public void setCC(String cC) {
-		CC = cC;
-	}
-	public String getFC() {
-		return FC;
-	}
-	public void setFC(String fC) {
-		FC = fC;
-	}
-	public String getDT() {
-		return DT;
-	}
-	public void setDT(String dT) {
-		DT = dT;
-	}
-	public String getMC() {
-		return MC;
-	}
-	public void setMC(String mC) {
-		MC = mC;
-	}
-	public String getMT() {
-		return MT;
-	}
-	public void setMT(String mT) {
-		MT = mT;
-	}
-	public String getCID() {
-		return CID;
-	}
-	public void setCID(String cID) {
-		CID = cID;
+		this.pc = pc;
+		this.pcc = pcc;
+		this.st = st;
+		this.cc = cc;
+		this.fc = fc;
+		this.dt = dt;
+		this.mc = mc;
+		this.mt = mt;
+		this.cid = cid;
+		this.sid = sid;
+		this.mpi = mpi;
 	}
 
-	public MPI getMPI() {
-		return MPI;
+	public String getPc() {
+		return pc;
 	}
 
-	public void setMPI(MPI mPI) {
-		MPI = mPI;
+	public void setPc(String pc) {
+		this.pc = pc;
 	}
+
+	public String getPcc() {
+		return pcc;
+	}
+
+	public void setPcc(String pcc) {
+		this.pcc = pcc;
+	}
+
+	public String getSt() {
+		return st;
+	}
+
+	public void setSt(String st) {
+		this.st = st;
+	}
+
+	public String getCc() {
+		return cc;
+	}
+
+	public void setCc(String cc) {
+		this.cc = cc;
+	}
+
+	public String getFc() {
+		return fc;
+	}
+
+	public void setFc(String fc) {
+		this.fc = fc;
+	}
+
+	public String getDt() {
+		return dt;
+	}
+
+	public void setDt(String dt) {
+		this.dt = dt;
+	}
+
+	public String getMc() {
+		return mc;
+	}
+
+	public void setMc(String mc) {
+		this.mc = mc;
+	}
+
+	public String getMt() {
+		return mt;
+	}
+
+	public void setMt(String mt) {
+		this.mt = mt;
+	}
+
+	public String getCid() {
+		return cid;
+	}
+
+	public void setCid(String cid) {
+		this.cid = cid;
+	}
+
+	public String getSid() {
+		return sid;
+	}
+
+	public void setSid(String sid) {
+		this.sid = sid;
+	}
+
+	public MPI getMpi() {
+		return mpi;
+	}
+
+	public void setMpi(MPI mpi) {
+		this.mpi = mpi;
+	}
+
 	
 }

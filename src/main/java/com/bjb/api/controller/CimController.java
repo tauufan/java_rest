@@ -37,7 +37,10 @@ import com.bjb.api.helper.HelperClass;
 import com.bjb.api.model.Cim;
 import com.bjb.api.repository.CimRepository;
 import com.bjb.api.service.AccountBalance.AccountBalance;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -49,7 +52,7 @@ public class CimController {
 	
 	private final static Logger logger = LoggerFactory.getLogger(CimController.class);
 	
-	@Autowired
+    @Autowired
     private CimRepository repository;
 	
 	// Find
@@ -61,13 +64,6 @@ public class CimController {
             @RequestParam(defaultValue = "10") int size
           ) throws JsonProcessingException{
         logger.info("Api "+request.getMethod()+" CIM "+request.getLocalAddr());
-        //test ab
-        AccountBalance ab = new AccountBalance();
-        
-        String res = ab.GetAccountBalance("0411920000100");
-        
-        System.out.println(res);
-        //end test ab
         try {
           List<Cim> cim = new ArrayList<Cim>();
           Pageable paging = PageRequest.of(page, size);
@@ -92,8 +88,13 @@ public class CimController {
           response.put("currentPage", pageTuts.getNumber());
           response.put("totalItems", pageTuts.getTotalElements());
           response.put("totalPages", pageTuts.getTotalPages());
+          ObjectWriter ow = new ObjectMapper()
+                            .setSerializationInclusion(JsonInclude.Include.NON_NULL)
+                            .writer();
+          logger.info("Api "+request.getMethod()+" CIM Response "+ow.writeValueAsString(response));
           return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e) {
+          logger.error("Api "+request.getMethod()+" CIM Response "+e.toString());
           return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
       }

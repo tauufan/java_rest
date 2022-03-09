@@ -2,22 +2,30 @@ package com.bjb.api.service.AccountBalance;
 
 import com.bjb.api.helper.Header;
 import com.bjb.api.helper.MPI;
+import com.bjb.api.service.SocketTG;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class AccountBalance {
 	
+        private final static Logger logger = LoggerFactory.getLogger(AccountBalance.class);
 	
+        private String host;
+        private int port;
+        
 	public AccountBalance() {
-		
+		setHost("10.6.226.216");
+                setPort(48484);
 	}
 	
 	public String GetAccountBalance(MPI mpi, Header header) throws JsonProcessingException {
 		String res = "";
 		
-		header.setMPI(mpi);
+		header.setMpi(mpi);
         
         ObjectWriter ow = new ObjectMapper()
         		.setSerializationInclusion(Include.NON_NULL)
@@ -34,18 +42,23 @@ public class AccountBalance {
 		
 		Header hdr = new Header();
         MPI mpi = new MPI();
-        mpi.setZLEAN(ZLEAN);
+        mpi.setZlean(ZLEAN);
 		
-        hdr.setMPI(mpi);
+        hdr.setMpi(mpi);
         
         ObjectWriter ow = new ObjectMapper()
         		.setSerializationInclusion(Include.NON_NULL)
-        		.writer()
-        		.withDefaultPrettyPrinter();
+        		.writer();
         
         res = ow.writeValueAsString(hdr);
 		
-		return res;
+//        logger.info(" === Connect to === "+ getHost()+":"+getPort() );
+//        logger.info(" === Request to === "+ getHost()+":"+getPort()+" "+res );
+        SocketTG sockt = new SocketTG();
+        res = sockt.sendDataSocketTG(getHost(), getPort() , res);
+//        logger.info(" === Response from === "+ getHost()+":"+getPort()+" "+res );
+//        logger.info(" === Disconnect from === "+ getHost()+":"+getPort() );
+        return res;
 	}
 	
 	public String GetAccountBalance(String ZLAB, String ZLAN, String ZLAS) throws JsonProcessingException {
@@ -53,20 +66,42 @@ public class AccountBalance {
 		
 		Header hdr = new Header();
         MPI mpi = new MPI();
-        mpi.setZLAB(ZLAB);
-        mpi.setZLAN(ZLAN);
-        mpi.setZLAS(ZLAS);
+        mpi.setZlab(ZLAB);
+        mpi.setZlan(ZLAN);
+        mpi.setZlas(ZLAS);
 		
-        hdr.setMPI(mpi);
+        hdr.setMpi(mpi);
         
         ObjectWriter ow = new ObjectMapper()
         		.setSerializationInclusion(Include.NON_NULL)
-        		.writer()
-        		.withDefaultPrettyPrinter();
+        		.writer();
+//        		.withDefaultPrettyPrinter();
         
         res = ow.writeValueAsString(hdr);
-		
-		return res;
+//        logger.info(" === Connect to === "+ getHost()+":"+getPort() );
+//        logger.info(" === Request to === "+ getHost()+":"+getPort()+" "+res );
+        SocketTG sockt = new SocketTG();
+        res = sockt.sendDataSocketTG(getHost(), getPort() , res);
+//        logger.info(" === Response from === "+ getHost()+":"+getPort()+" "+res );
+//        logger.info(" === Disconnect from === "+ getHost()+":"+getPort() );	
+	return res;
 	}
+
+    public String getHost() {
+        return host;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
+    }
 	
+        
 }
