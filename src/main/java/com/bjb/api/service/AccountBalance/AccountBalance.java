@@ -2,24 +2,24 @@ package com.bjb.api.service.AccountBalance;
 
 import com.bjb.api.helper.Header;
 import com.bjb.api.helper.MPI;
-import com.bjb.api.service.SocketTG;
+import com.bjb.api.service.socket.SocketTG;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 
 public class AccountBalance {
 	
-        private final static Logger logger = LoggerFactory.getLogger(AccountBalance.class);
+//        private final static Logger logger = LoggerFactory.getLogger(AccountBalance.class);
 	
         private String host;
         private int port;
         
 	public AccountBalance() {
 		setHost("10.6.226.216");
-                setPort(48484);
+        setPort(48484);
 	}
 	
 	public String GetAccountBalance(MPI mpi, Header header) throws JsonProcessingException {
@@ -51,13 +51,8 @@ public class AccountBalance {
         		.writer();
         
         res = ow.writeValueAsString(hdr);
-		
-//        logger.info(" === Connect to === "+ getHost()+":"+getPort() );
-//        logger.info(" === Request to === "+ getHost()+":"+getPort()+" "+res );
-        SocketTG sockt = new SocketTG();
+		SocketTG sockt = new SocketTG();
         res = sockt.sendDataSocketTG(getHost(), getPort() , res);
-//        logger.info(" === Response from === "+ getHost()+":"+getPort()+" "+res );
-//        logger.info(" === Disconnect from === "+ getHost()+":"+getPort() );
         return res;
 	}
 	
@@ -78,13 +73,9 @@ public class AccountBalance {
 //        		.withDefaultPrettyPrinter();
         
         res = ow.writeValueAsString(hdr);
-//        logger.info(" === Connect to === "+ getHost()+":"+getPort() );
-//        logger.info(" === Request to === "+ getHost()+":"+getPort()+" "+res );
         SocketTG sockt = new SocketTG();
         res = sockt.sendDataSocketTG(getHost(), getPort() , res);
-//        logger.info(" === Response from === "+ getHost()+":"+getPort()+" "+res );
-//        logger.info(" === Disconnect from === "+ getHost()+":"+getPort() );	
-	return res;
+        return res;
 	}
 
     public String getHost() {

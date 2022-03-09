@@ -1,4 +1,4 @@
-package com.bjb.api.service;
+package com.bjb.api.service.socket;
 
 import id.co.vsi.common.crypto.SymetricCryptoHandler;
 import java.io.*;

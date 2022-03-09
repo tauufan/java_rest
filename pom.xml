@@ -113,12 +113,14 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
-	 <dependency>
-	  <groupId>id.co.vsi.common</groupId>
-	  <artifactId>crypto</artifactId>
-	  <version>1</version>
-	  <type>jar</type>
-	 </dependency>
+        <!--
+		 <dependency>
+		  <groupId>id.co.vsi.common</groupId>
+		  <artifactId>crypto</artifactId>
+		  <version>1</version>
+		  <type>jar</type>
+		 </dependency>
+		 -->
 	 <dependency>
 	  <groupId>io.swagger</groupId>
 	  <artifactId>swagger-annotations</artifactId>
