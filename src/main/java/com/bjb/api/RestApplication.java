@@ -8,7 +8,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import com.bjb.api.model.Book;
+import com.bjb.api.model.User;
 import com.bjb.api.repository.BookRepository;
+import com.bjb.api.repository.UsersRepository;
 
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -38,4 +40,10 @@ public class RestApplication {
 //            repository.save(new Book("Refactoring: Improving the Design of Existing Code", "Martin Fowler", new BigDecimal("47.99")));
 //        };
 //    }
+//	  @Bean
+//	  CommandLineRunner initDatabase(UsersRepository repository) {
+//	      return args -> {
+//	          repository.save(new User("admin", "$2a$12$CzCxM6CakgZWcY9GKKPK1uVy0bABspBhOLBuFvOCacboEhis43a7y", "ROLE_ADMIN", true));
+//	      };
+//	  }
 }

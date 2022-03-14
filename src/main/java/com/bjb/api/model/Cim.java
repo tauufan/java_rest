@@ -16,8 +16,8 @@ import io.swagger.annotations.ApiModelProperty;
 @Entity
 public class Cim {
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-	@ApiModelProperty(value = "id", hidden = true)
+    @ApiModelProperty(value = "id", hidden = true)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	@NotEmpty(message = "Tidak boleh kosong!")
     @Length(max = 6, min = 6)
@@ -29,6 +29,7 @@ public class Cim {
 	@Transient
 	@ApiModelProperty(example = "dd-mm-yyyy", hidden = true)
 	private String tanggal_lahir_desc;
+	private String agama;
 	private String nama_lengkap;
 	private String kode_identitas;
 	@Column(name="nomor_id")
@@ -106,7 +107,7 @@ public class Cim {
 	
 	public Cim(@NotEmpty(message = "Tidak boleh kosong!") @Length(max = 6, min = 6) String cif,
 			String hubungan_dengan_bank, String tempat_lahir, String tanggal_lahir, String tanggal_lahir_desc,
-			String nama_lengkap, String kode_identitas, String nomorid, String tanggal_berakhir_kartu_id,
+			String agama, String nama_lengkap, String kode_identitas, String nomorid, String tanggal_berakhir_kartu_id,
 			String tanggal_berakhir_kartu_id_desc, String jenis_kelamin, String perkerjaan,
 			String alamat_tempat_berkerja, String kegiatan_usaha_tempat_berkerja, String npwp,
 			String jumlah_penghasilan, String rekening_dibank_lain, String alamat_email, String no_hp,
@@ -129,6 +130,7 @@ public class Cim {
 		this.tempat_lahir = tempat_lahir;
 		this.tanggal_lahir = tanggal_lahir;
 		this.tanggal_lahir_desc = tanggal_lahir_desc;
+		this.agama = agama;
 		this.nama_lengkap = nama_lengkap;
 		this.kode_identitas = kode_identitas;
 		this.nomorid = nomorid;
@@ -184,7 +186,6 @@ public class Cim {
 		this.updateby = updateby;
 		this.updatedate = updatedate;
 	}
-
 
 
 	public Long getId() {
@@ -800,6 +801,14 @@ public class Cim {
 
 	public void setUpdatedate(Timestamp updatedate) {
 		this.updatedate = updatedate;
+	}
+
+	public String getAgama() {
+		return agama;
+	}
+
+	public void setAgama(String agama) {
+		this.agama = agama;
 	}
 
 	

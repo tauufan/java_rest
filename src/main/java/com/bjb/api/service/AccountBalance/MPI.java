@@ -1,4 +1,4 @@
-package com.bjb.api.helper;
+package com.bjb.api.service.AccountBalance;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;

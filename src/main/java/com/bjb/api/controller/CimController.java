@@ -19,6 +19,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -36,7 +37,6 @@ import com.bjb.api.exeption.error.RecordNotFoundException;
 import com.bjb.api.helper.HelperClass;
 import com.bjb.api.model.Cim;
 import com.bjb.api.repository.CimRepository;
-import com.bjb.api.service.AccountBalance.AccountBalance;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -47,7 +47,7 @@ import io.swagger.annotations.ApiOperation;
 
 
 @RestController
-@Api(description="Customer Information & Maintenance")
+@Api(description="Customer Information & Maintenance", tags = "CIM")
 public class CimController {
 	
 	private final static Logger logger = LoggerFactory.getLogger(CimController.class);
@@ -58,6 +58,7 @@ public class CimController {
 	// Find
     @GetMapping("/api/cim")
     @ApiOperation(value = "List Cim")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<Map<String, Object>> getAllCims(
     		HttpServletRequest request,
             @RequestParam(defaultValue = "0") int page,
@@ -110,6 +111,7 @@ public class CimController {
     
     @GetMapping("/api/cim/{cif}")
     @ApiOperation(value = "Search CIM By CIF")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     List<Cim> findbyCif(HttpServletRequest request, @PathVariable String cif) {
     	
     	    List<Cim> cim = repository.findByCif_(cif);
@@ -131,6 +133,7 @@ public class CimController {
     
     @GetMapping("/api/cim/find_by_nomor_id/{nomor_id}")
     @ApiOperation(value = "Search CIM By Id Number")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     List<Cim> findbyNomor_id(HttpServletRequest request, @PathVariable String nomor_id) {
     	
     	    List<Cim> cim = repository.findByNomorid(nomor_id);
@@ -154,6 +157,7 @@ public class CimController {
     @ResponseStatus(code = HttpStatus.CREATED)
     @PostMapping("/api/cim")
     @ApiOperation(value = "Add Cim")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     ResponseEntity<Object> newCim(@Valid @RequestBody Cim newCim) {
 	    	List<Cim> cim = repository.findByCif_(newCim.getCif());
 	    	Cim resp = new Cim();
@@ -174,6 +178,7 @@ public class CimController {
     
     @DeleteMapping("/api/cim/deleteByCif/{cif}")
     @ApiOperation(value = "Delete CIM By CIF")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     void deleteCimbyCif(@PathVariable String cif) {
     	List<Cim> cim = repository.findByCif_(cif);
     	if (cim.isEmpty()) {
@@ -184,6 +189,7 @@ public class CimController {
     
     @DeleteMapping("/api/cim/deleteByid/{id}")
     @ApiOperation(value = "Delete CIM By id")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     void deleteCim(@PathVariable Long id) {
     	repository.deleteById(id);
     }
@@ -191,6 +197,7 @@ public class CimController {
  // Save or update
     @PutMapping("/api/cim/bycif/{cif}")
     @ApiOperation(value = "Save Or Update CIM By CIF")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     Cim saveOrUpdateCim(@RequestBody Cim newCim, @PathVariable String cif) {
     			Cim getCif = repository.findByCif(cif);
     			Long id = getCif.getId();
@@ -269,7 +276,6 @@ public class CimController {
         });
         return errors;
     }
-    
     
     
 }

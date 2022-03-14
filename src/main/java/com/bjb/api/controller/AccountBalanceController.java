@@ -1,7 +1,7 @@
 package com.bjb.api.controller;
 
-import com.bjb.api.helper.MPI;
 import com.bjb.api.service.AccountBalance.AccountBalance;
+import com.bjb.api.service.AccountBalance.MPI;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -29,13 +30,14 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @author L114
  */
 @RestController
-@Api(description="Account Balance")
+@Api(description="Account Balance", tags = "AB")
 public class AccountBalanceController {
     private final static Logger logger = LoggerFactory.getLogger(AccountBalanceController.class);
     
     @ResponseStatus(code = HttpStatus.OK)
     @PostMapping("/api/ab/eksternal")
     @ApiOperation(value = "Account Balance Extenal Number")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     ResponseEntity<Object> Ab(@RequestBody MPI mpi) {
 	    	AccountBalance ab = new AccountBalance();
                 String norek = mpi.getZlean();
@@ -44,7 +46,7 @@ public class AccountBalanceController {
                 	logger.info("Request AB to middleware "+mpi.toString());
                     res = ab.GetAccountBalance(norek);
                     Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                    JsonParser jp = new JsonParser();
+//                    JsonParser jp = new JsonParser();
                     JsonObject jsonObject = new JsonParser().parse(res).getAsJsonObject();
                     String rc = jsonObject.get("RC").getAsString();
                     if (rc.equalsIgnoreCase("0000")) {
@@ -71,6 +73,7 @@ public class AccountBalanceController {
     @ResponseStatus(code = HttpStatus.OK)
     @PostMapping("/api/ab/internal")
     @ApiOperation(value = "Account Balance Internal Number")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     ResponseEntity<Object> AbInternal(@RequestBody MPI mpi) {
 	    	AccountBalance ab = new AccountBalance();
                 String zlab = mpi.getZlab();
