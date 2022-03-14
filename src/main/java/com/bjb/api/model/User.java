@@ -6,8 +6,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import io.swagger.annotations.ApiModelProperty;
 
 //import io.swagger.annotations.ApiModelProperty;
 
@@ -17,14 +20,15 @@ public class User {
 	@Id
     @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
- 
-    private String username;
-//    @ApiModelProperty(value = "password", hidden = true)
-    private String password;
-    private String role;
+	@ApiModelProperty(hidden = true)
+	private Long id;
+	@NotEmpty(message = "Tidak boleh kosong!")
+	private String username;
+	private String password;
+	@ApiModelProperty(example = "ROLE_ADMIN / ROLE_USER", hidden = true)
+	private String role;
     private boolean enabled;
-    
+
     public User() {
     	
     }
@@ -73,5 +77,4 @@ public class User {
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
-    
 }

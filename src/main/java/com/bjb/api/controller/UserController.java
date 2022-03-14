@@ -51,17 +51,18 @@ public class UserController {
     @ApiOperation(value = "List Client User")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
 	List<User> findbyUsername(HttpServletRequest request, @PathVariable String username) throws JsonProcessingException {
-		logger.info("Api "+request.getMethod()+" User "+request.getLocalAddr());
+		logger.info("Api "+request.getMethod()+" User "+request.getRemoteAddr());
+		
 	    List<User> user = repository.findByUsername(username);
 	    ObjectWriter ow = new ObjectMapper()
                 .setSerializationInclusion(JsonInclude.Include.NON_NULL)
                 .writer();
-	    
 	    if (user.isEmpty()) {
 	    	logger.info("Api "+request.getMethod()+" User Response : NULL User");
         	throw new RecordNotFoundException(username);
     	}else {
-    		logger.info("Api "+request.getMethod()+" User Response "+ow.writeValueAsString(user));
+    		user.get(0).setPassword("");
+    	    logger.info("Api "+request.getMethod()+" User Response "+ow.writeValueAsString(user));
         	return user;
     	}
 	    
@@ -70,18 +71,20 @@ public class UserController {
 	@PutMapping("/api/client/{username}")
 	@ApiOperation(value = "Save Or Update Client User By Username")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	User saveOrUpdateUser(HttpServletRequest request, @RequestBody User newUser, @PathVariable String username) {
-		logger.info("Api "+request.getMethod()+" User "+request.getLocalAddr());
+	User saveOrUpdateUser(HttpServletRequest request, @RequestBody User newUser, @PathVariable String username) throws JsonProcessingException {
+		logger.info("Api "+request.getMethod()+" User "+request.getRemoteAddr());
 	    User getUser = repository.findByUsername_(username);
 		String pswd = newUser.getPassword();
 		String pswdEncrypt = encypt.encode(newUser.getPassword());
-		
+		ObjectWriter ow = new ObjectMapper()
+                .setSerializationInclusion(JsonInclude.Include.NON_NULL)
+                .writer();
 		if (getUser == null) {
 			newUser.setUsername(username);
 			newUser.setPassword(pswdEncrypt);
 			repository.save(newUser);
 			newUser.setPassword(pswd);
-			logger.info("Api "+request.getMethod()+" User Response :"+newUser.toString());
+			logger.info("Api "+request.getMethod()+" User Response :"+ow.writeValueAsString(newUser));
 			return newUser;
 		}else {
 			Long id = getUser.getId();
@@ -95,11 +98,19 @@ public class UserController {
 						newUser.setId(id);
 						newUser.setUsername(username);
 						newUser.setPassword(pswd);
-						logger.info("Api "+request.getMethod()+" User Response :"+newUser.toString());
+						try {
+							logger.info("Api "+request.getMethod()+" User Response :"+ow.writeValueAsString(newUser));
+						} catch (JsonProcessingException e) {
+							e.printStackTrace();
+						}
 						return newUser;
 					})
 					.orElseGet(() -> {
-						logger.info("Api "+request.getMethod()+" User Response :"+newUser.toString());
+						try {
+							logger.info("Api "+request.getMethod()+" User Response :"+ow.writeValueAsString(newUser));
+						} catch (JsonProcessingException e) {
+							e.printStackTrace();
+						}
 	                    return repository.save(newUser);
 	                });
 		}

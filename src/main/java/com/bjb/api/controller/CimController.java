@@ -64,7 +64,7 @@ public class CimController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
           ) throws JsonProcessingException{
-        logger.info("Api "+request.getMethod()+" CIM "+request.getLocalAddr());
+        logger.info("Api "+request.getMethod()+" CIM "+request.getRemoteAddr());
         try {
           List<Cim> cim = new ArrayList<Cim>();
           Pageable paging = PageRequest.of(page, size);
