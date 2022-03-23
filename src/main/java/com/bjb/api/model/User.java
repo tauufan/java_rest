@@ -25,7 +25,7 @@ public class User {
 	@NotEmpty(message = "Tidak boleh kosong!")
 	private String username;
 	private String password;
-	@ApiModelProperty(example = "ROLE_ADMIN / ROLE_USER", hidden = true)
+	@ApiModelProperty(example = "ROLE_ADMIN / ROLE_USER")
 	private String role;
     private boolean enabled;
 

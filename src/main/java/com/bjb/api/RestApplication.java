@@ -7,10 +7,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import com.bjb.api.model.Book;
 import com.bjb.api.model.User;
-import com.bjb.api.repository.BookRepository;
+//import com.bjb.api.model2.Book;
 import com.bjb.api.repository.UsersRepository;
+//import com.bjb.api.repository2.BookRepository;
 
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
